@@ -2,10 +2,10 @@
 
 <h1>All Views</h1>
 
-{% for view in views %} {% comment %} Decide the URL for the route based of the
-contents of the intended data to be rendered {% endcomment %}
+{% for view in object_list %} {% comment %} Decide the URL for the route based
+of the contents of the intended data to be rendered {% endcomment %}
 <div class="card">
-	<a href="/views/{{view.id}}">
+	<a href="{% url 'detail' view.id %}">
 		<div class="card-content">
 			<span class="card-title">{{ view.name }}</span>
 			<p>Locaion: {{ view.location }}</p>
