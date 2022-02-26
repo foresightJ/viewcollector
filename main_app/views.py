@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import View
 # class View:
 #     def __init__(self, name, location, occassion, credit):
 #         self.name = name
@@ -21,6 +21,11 @@ def about(request):
     return render(request, 'about.html')
 
 def views_index(request):
+    views = View.objects.all()
     return render(request, 'views/index.html', {'views': views })
+
+def views_detail(request, view_id):
+    view = View.objects.get(id=view_id)
+    return render(request, 'views/detail.html', {'view': view })
 
 # Create your views here.

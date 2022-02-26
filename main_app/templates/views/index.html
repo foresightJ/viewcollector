@@ -2,17 +2,20 @@
 
 <h1>All Views</h1>
 
-{% for view in views %}
+{% for view in views %} {% comment %} Decide the URL for the route based of the
+contents of the intended data to be rendered {% endcomment %}
 <div class="card">
-	<div class="card-content">
-		<span class="card-title">{{ view.name }}</span>
-		<p>Locaion: {{ view.location }}</p>
-		<p>Occasion: {{ view.occassion }}</p>
-		{% if view.credit == "Foresight" %}
-		<p>Photo Credit: Me</p>
-		{% else %}
-		<p>Photo Credit: {{ view.credit }}</p>
-		{% endif %}
-	</div>
+	<a href="/views/{{view.id}}">
+		<div class="card-content">
+			<span class="card-title">{{ view.name }}</span>
+			<p>Locaion: {{ view.location }}</p>
+			<p>Occasion: {{ view.occassion }}</p>
+			{% if view.credit == "Foresight" %}
+			<p>Photo Credit: Me</p>
+			{% else %}
+			<p>Photo Credit: {{ view.credit }}</p>
+			{% endif %}
+		</div>
+	</a>
 </div>
 {% endfor %} {% endblock %}
