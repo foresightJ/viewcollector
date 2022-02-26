@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>All Views</h1>
+
+{% for view in views %}
+<div class="card">
+	<div class="card-content">
+		<span class="card-title">{{ view.name }}</span>
+		<p>Locaion: {{ view.location }}</p>
+		<p>Occasion: {{ view.occassion }}</p>
+		{% if view.credit == "Foresight" %}
+		<p>Photo Credit: Me</p>
+		{% else %}
+		<p>Photo Credit: {{ view.credit }}</p>
+		{% endif %}
+	</div>
+</div>
+{% endfor %} {% endblock %}
