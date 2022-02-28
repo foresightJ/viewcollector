@@ -2,17 +2,108 @@
 
 <h1>View Details</h1>
 
-<div class="card">
-	<div class="card-content">
-		<span class="card-title">{{ view.name }}</span>
-		<p>Location: {{ view.location }}</p>
-		<p>Occassion: {{ view.occassion }}</p>
-		{% if view.credit == "Foresight" %}
-		<p>Photo Credit: Me</p>
+<div class="row">
+	<div class="col s6">
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">{{ view.name }}</span>
+				<p>Location: {{ view.location }}</p>
+				<p>Occassion: {{ view.occassion }}</p>
+				{% if view.credit == "Foresight" %}
+				<p>Photo Credit: Me</p>
+				{% else %}
+				<p>Photo Credit: {{ view.credit }}</p>
+				{% endif %}
+			</div>
+			<div class="card-action">
+				<a href="{% url 'views_update' view.id %}">Edit</a>
+				<a href="{% url 'views_delete' view.id %}">Delete</a>
+			</div>
+		</div>
+	</div>
+	<div class="col s6">
+		<form action="{% url 'add_event' view.id%}" method="post">
+			{% csrf_token %} {{ event_form.as_p }}
+			<input type="submit" class="btn" value="Add Event" />
+		</form>
+		<br />
+		{% if view.event_for_today %}
+		<div class="card-panel teal-text center-align">
+			{{view.name}} has all latest events for today
+		</div>
 		{% else %}
-		<p>Photo Credit: {{ view.credit }}</p>
+		<div class="card-panel red-text center-align">
+			{{view.name}} might be missing an event type for today
+		</div>
+		{% endif %}
+		<table class="striped">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Event</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for event in view.event_set.all %}
+				<tr>
+					<td>{{event.date}}</td>
+					<td>{{event.get_event_display}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<hr />
+<div class="row">
+	<div class="col s6">
+		<h3>{{ view.name }}'s Stars</h3>
+		{% if view.stars.count %} {% for toy in view.stars.all %}
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">
+					A <span style="color: {{ star.color }}">{{ star.color }}</span> {{
+					star.name }}
+				</span>
+			</div>
+		</div>
+		{% endfor %} {% else %}
+		<h5>No Stars :(</h5>
+		{% endif %}
+	</div>
+	<!-- Available toys will come after this line -->
+	<div class="col s6">
+		<h3>Available Stars</h3>
+		{% if stars.count %} {% for star in stars.all %}
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">
+					A <span style="color: {{ star.color }}">{{ star.color }}</span> {{
+					star.name }}
+				</span>
+			</div>
+			<div class="card-action">
+				<form action="{% url 'assoc_star' view.id star.id %}" method="post">
+					{% csrf_token %}
+					<button type="submit" class="btn">Add</button>
+				</form>
+			</div>
+		</div>
+		{% endfor %} {% else %}
+		<h5>{{star.name}} Already Has All Stars Available</h5>
 		{% endif %}
 	</div>
 </div>
+<script>
+	var dateEl = document.getElementById('id_date');
+	M.Datepicker.init(dateEl, {
+		format: 'yyyy-mm-dd',
+		defaultDate: new Date(),
+		setDefaultDate: true,
+		autoClose: true,
+	});
 
+	var selectEl = document.getElementById('id_event');
+	M.FormSelect.init(selectEl);
+</script>
 {% endblock %}

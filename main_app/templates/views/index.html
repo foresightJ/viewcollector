@@ -2,7 +2,7 @@
 
 <h1>All Views</h1>
 
-{% for view in object_list %} {% comment %} Decide the URL for the route based
+{% for view in view_list %} {% comment %} Decide the URL for the route based
 of the contents of the intended data to be rendered {% endcomment %}
 <div class="card">
 	<a href="{% url 'detail' view.id %}">
