@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Star List</h1>
+
+{% for star in star_list %}
+<a href="{% url 'stars_detail' star.id %}">
+	<div class="card">
+		<div class="card-content">
+			<span class="card-title">{{ star.name }}</span>
+			<p>Color: {{ star.color }}</p>
+		</div>
+	</div>
+</a>
+{% endfor %} {% endblock %}

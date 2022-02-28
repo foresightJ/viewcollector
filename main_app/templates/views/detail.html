@@ -58,12 +58,12 @@
 <div class="row">
 	<div class="col s6">
 		<h3>{{ view.name }}'s Stars</h3>
-		{% if view.stars.count %} {% for toy in view.stars.all %}
+		{% if view.stars.count %} {% for star in view.stars.all %}
 		<div class="card">
 			<div class="card-content">
 				<span class="card-title">
-					A <span style="color: {{ star.color }}">{{ star.color }}</span> {{
-					star.name }}
+					A <span style="color: {{ star.color }}"> {{ star.color }}</span>
+					<span>{{ star.name }}</span>
 				</span>
 			</div>
 		</div>
@@ -78,8 +78,8 @@
 		<div class="card">
 			<div class="card-content">
 				<span class="card-title">
-					A <span style="color: {{ star.color }}">{{ star.color }}</span> {{
-					star.name }}
+					A <span style="color: {{ star.color }}"> {{ star.color }}</span>
+					<span>{{ star.name }}</span>
 				</span>
 			</div>
 			<div class="card-action">
@@ -90,10 +90,12 @@
 			</div>
 		</div>
 		{% endfor %} {% else %}
-		<h5>{{star.name}} Already Has All Stars Available</h5>
+		<h5>{{ star.name }} Already Has All Stars Available</h5>
 		{% endif %}
 	</div>
 </div>
+
+<!-- JS to create a date picker and init the event dropdown -->
 <script>
 	var dateEl = document.getElementById('id_date');
 	M.Datepicker.init(dateEl, {
@@ -103,6 +105,7 @@
 		autoClose: true,
 	});
 
+	// initialize the event select
 	var selectEl = document.getElementById('id_event');
 	M.FormSelect.init(selectEl);
 </script>
