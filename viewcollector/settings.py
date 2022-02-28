@@ -121,4 +121,9 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
+#redirects to view index page
+LOGIN_REDIRECT_URL = '/views/'
+
+LOGOUT_REDIRECT_URL = '/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
