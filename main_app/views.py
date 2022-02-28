@@ -33,6 +33,11 @@ def signup(request):
 class ViewListView(LoginRequiredMixin, ListView):
     model = View
     template_name = 'views/index.html'
+    def get_queryset(self):
+      return self.request.user.view_set.all()
+    
+    # <<----working out the right logic to render user-sepecific model data---->>
+    
     # context_object_name = 'view_list'
     # queryset = View.objects.filter(user=request.user)
     
